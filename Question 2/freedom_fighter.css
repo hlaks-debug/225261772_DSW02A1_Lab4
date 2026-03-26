@@ -1,0 +1,8 @@
+  #pics img, #favorites img {
+    width: 150px;   /* fixed width */
+    height: 150px;  /* fixed height */
+    object-fit: cover; /* crop neatly without distortion */
+    margin: 5px;
+    cursor: pointer;
+  }
+

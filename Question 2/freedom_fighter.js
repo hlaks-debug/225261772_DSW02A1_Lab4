@@ -6,16 +6,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let selectionOrder = 0;
 
-  
+  // Add tooltips
   pics.querySelectorAll("img").forEach(img => {
     img.title = img.alt.trim();
   });
 
-
+  // Create placeholders for each image at page load
     pics.querySelectorAll("img").forEach((img, index) => {
         const placeholder = document.createComment(`placeholder-${index}`);
         img.parentNode.insertBefore(placeholder, img.nextSibling);
-        img.dataset.placeholderId = index; 
+        img.dataset.placeholderId = index; // store ID for later
     });
 
 
@@ -23,22 +23,22 @@ document.addEventListener("DOMContentLoaded", () => {
     img.dataset.originalIndex = index;
     img.addEventListener("click", () => {
     if (favourites.contains(img)) {
-      return; 
+      return; // stop here, no duplicate logs or actions
     }
     if (!favourites.contains(img)) {
       selectionOrder = favourites.querySelectorAll("img").length + 1;
       
-     
+      // Move image to the rightmost end
       favourites.appendChild(img);
       img.style.border = "3px solid green";
 
-     
+      // Show only filename
       const fileName = img.src.split("/").pop();
       const li = document.createElement("li");
       li.textContent = `Moved ${fileName} to favorites`;
       actions.appendChild(li);
 
-      const remaining = pics.querySelectorAll("img").length; 
+      const remaining = pics.querySelectorAll("img").length; // after move
       if (remaining === 0) {
         alert("All images have been selected!");
       }
@@ -61,7 +61,7 @@ favourites.addEventListener("click", (event) => {
     li.textContent = `Reverted ${fileName} back to the main list`;
     actions.appendChild(li);
 
-    
+    // Restore original order using placeholder
     const placeholderId = img.dataset.placeholderId;
     const placeholders = pics.childNodes;
     let targetPlaceholder = null;
@@ -72,12 +72,12 @@ favourites.addEventListener("click", (event) => {
     }
     });
 
-   
+    // Put the image back before its placeholder
     if (targetPlaceholder) {
     pics.insertBefore(img, targetPlaceholder);
     selectionOrder = favourites.querySelectorAll("img").length;
     } else {
-    pics.appendChild(img); 
+    pics.appendChild(img); // fallback if placeholder not found
     }
         updateCounter();
     }
