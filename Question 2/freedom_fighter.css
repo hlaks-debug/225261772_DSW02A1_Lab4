@@ -1,7 +1,7 @@
   #pics img, #favorites img {
-    width: 150px;   /* fixed width */
-    height: 150px;  /* fixed height */
-    object-fit: cover; /* crop neatly without distortion */
+    width: 150px;  
+    height: 150px;  
+    object-fit: cover; 
     margin: 5px;
     cursor: pointer;
   }
